@@ -6,6 +6,7 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
+#hmmmm
 
 
 if __name__ == "__main__":
