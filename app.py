@@ -6,7 +6,7 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
-#hmmmm
+#hmmmm lets see if the disc thing works
 
 
 if __name__ == "__main__":
