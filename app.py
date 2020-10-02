@@ -9,5 +9,34 @@ app.config['SECRET_KEY'] = os.urandom(24)
 #hmmmm lets see if the disc thing works
 
 
+@app.route('/')
+def table():
+    return render_template('index.html')
+
+@app.route('/fonts/<path:path>')
+def fonts(path):
+    return send_from_directory('templates/fonts',path)
+
+@app.route('/img/<path:path>')
+def img(path):
+    return send_from_directory('templates/img',path)
+
+@app.route('/sass/<path:path>')
+def sass(path):
+    return send_from_directory('templates/sass',path)
+
+@app.route('/Source/<path:path>')
+def Source(path):
+    return send_from_directory('templates/Source',path)
+
+@app.route('/css/<path:path>')
+def css(path):
+    return send_from_directory('templates/css',path)
+
+@app.route('/js/<path:path>')
+def js(path):
+    return send_from_directory('templates/js',path)
+
+
 if __name__ == "__main__":
     app.run()
