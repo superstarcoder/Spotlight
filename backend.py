@@ -27,22 +27,28 @@
                 </div>
 """
 
-
 """
 <iframe src="https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 """
-#embed link
-#name of song
-#by who
-#genre
+
+"""
+"""
+# embed link
+# name of song
+# by who
+# genre
 
 data = [
-    {"songid":r"https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy", "votes": 1, "name":"Player No More", "genre": "rap pop", "artist":"Wassup Rocker", "who":"Danny"},
-    {"songid":r"https://open.spotify.com/embed/track/1B5jLmBZ9p9CTCT0fiBmIx", "votes": 1, "name": "1100", "genre" : "rap pop", "artist" : "tuxx", "who" : "Danny"}
+    {"songid": r"https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy", "votes": 1, "name": "Player No More",
+     "genre": "pop-rap", "artist": "Wassup Rocker", "who": "Danny"},
+    {"songid": r"https://open.spotify.com/embed/track/1B5jLmBZ9p9CTCT0fiBmIx", "votes": 1, "name": "1100",
+     "genre": "pop-rap", "artist": "tuxx", "who": "Danny"},
+    {"songid": r"https://open.spotify.com/embed/track/2syCQpfGEttT4U2v8kVou7", "votes": 1, "name": "SoulEaters",
+     "genre": "pop", "artist": "iceey.i, Lil Boom", "who": "Danny"}
 ]
 
 
-def dataToHtml(data):
+def songsToHtml(data):
     inside = []
     for x in data:
         inside.append("<div class=\"col-lg-4 col-md-6 col-sm-6 mix %s\">" % x["genre"])
@@ -55,30 +61,56 @@ def dataToHtml(data):
         link = x["songid"]
         w = "240"
         h = "304"
-        inside.append("<iframe src=\"%s\" width=\"%s\" height=\"%s\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>" % (link, w, h))
+        inside.append(
+            "<iframe src=\"%s\" width=\"%s\" height=\"%s\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>" % (
+            link, w, h))
         inside.append("</div>")
         inside.append("<br>")
         inside.append("<div class=\"portfolio__item__text\">")
 
         songName = x["name"]
-        inside.append("<h4>"+songName+"</h4>")
+        inside.append("<h4>" + songName + "</h4>")
 
         artist = x["artist"]
-        inside.append("<ul><li>"+artist+"</li></ul>")
+        inside.append("<ul><li>" + artist + "</li></ul>")
 
         genre = x["genre"]
-        inside.append("<ul><li>"+genre+"</li></ul></div></div></div>\n\n\n")
+        inside.append("<ul><li>" + genre + "</li></ul></div></div></div>\n\n\n")
     return inside
 
-lines = []
-with open('templates/discoverTemplate.html') as f:
-    for x in f.readlines():
-        lines += x
-        if "<!-- backend: songs -->" in x:
-            lines += dataToHtml(data)
+"""
+
+reload songs and add code to html
+"""
+def reloadSongs(data, genres):
+    lines = []
+    with open('templates/discoverTemplate.html') as f:
+        for x in f.readlines():
+            lines += x
+            if "<!-- backend: songs -->" in x:
+                lines += songsToHtml(data)
+
+            elif "<!-- backend: genres -->" in x:
+                for key, value in genres.items():
+                    lines += "<li data-filter=\"."+key+"\">"+value+"</li>"
+
+    open('templates/discover.html', 'w').close()
+
+    with open("templates/discover.html", "w") as f:
+        f.writelines(lines)
+    f.close()
 
 
-open('templates/discover.html', 'w').close()
+genres = {"pop": "Pop", "pop-rap": "Pop Rap", "lo-fi": "Lo-fi", "metal": "Metal", "world": "World"}
+"""
+<li data-filter=".branding">Branding</li>
+<li data-filter=".digital-marketing">Digital marketing</li>
+<li data-filter=".web">Web</li>
+<li data-filter=".photography">Photography</li>
+<li data-filter=" .ecommerce">eCommerce</li>
+"""
+#def reloadGenres(genres):
 
-with open("templates/discover.html", "w") as f:
-    table_foot = f.writelines(lines)
+
+
+reloadSongs(data, genres)
