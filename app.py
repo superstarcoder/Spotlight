@@ -10,8 +10,16 @@ app.config['SECRET_KEY'] = os.urandom(24)
 
 
 @app.route('/')
-def table():
+def index():
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/discover')
+def discover():
+    return render_template('discover.html')
 
 @app.route('/fonts/<path:path>')
 def fonts(path):
