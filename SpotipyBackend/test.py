@@ -18,11 +18,12 @@ import spotipy
 import webbrowser
 import spotipy.util as util
 from json.decoder import JSONDecodeError
+import pprint
 
 # Get the username from terminal
 #https://open.spotify.com/user/yv5v7ustl0gvj2ismb6ru1bk1?si=L5gHBWM8RPqsh8yps34BfQ
 username = "yv5v7ustl0gvj2ismb6ru1bk1?si=L5gHBWM8RPqsh8yps34BfQ"
-scope = 'user-read-private user-read-playback-state user-modify-playback-state'
+scope = 'user-read-private user-read-playback-state user-modify-playback-state user-library-read'
 
 # Erase cache and prompt for user permission
 try:
@@ -52,6 +53,16 @@ user = spotifyObject.current_user()
 displayName = user['display_name']
 followers = user['followers']['total']
 
+def songs():
+    liked_songs = []
+    for item in spotifyObject.current_user_saved_tracks()['items']:
+        track = item['track']
+        print(track['name'] + ' - ' + track['artists'][0]['name'])
+        song_id =('https://open.spotify.com/embed/track/'+str(track['id']))
+        template = {"songid": song_id, "votes": 1, "name": track['name'],
+     "genre": "pop-rap", "artist": track['artists'][0]['name'], "who": displayName}
+        liked_songs.append(template)
+    return(liked_songs)
 # Loop
 while True:
     # Main Menu
