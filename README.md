@@ -1,0 +1,2 @@
+# What is Spotlight?
+Spotlight is a community driven underground artist finder, which uses forms that anyone can fill out, to feature an artist that many people may not have heard about. It does so by using the spotify api to  
