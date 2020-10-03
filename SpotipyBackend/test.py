@@ -37,16 +37,16 @@ spotifyObject = spotipy.Spotify(auth=token)
 print(spotifyObject.me())
 
 # Get current device
-devices = spotifyObject.devices()
-deviceID = devices['devices'][0]['id']
+#devices = spotifyObject.devices()
+#deviceID = devices['devices'][0]['id']
 
 # Current track information
-track = spotifyObject.current_user_playing_track()
-artist = track['item']['artists'][0]['name']
-track = track['item']['name']
+#track = spotifyObject.current_user_playing_track()
+#artist = track['item']['artists'][0]['name']
+#track = track['item']['name']
 
-if artist != "":
-    print("Currently playing " + artist + " - " + track)
+#if artist != "":
+#    print("Currently playing " + artist + " - " + track)
 
 # User information
     user = spotifyObject.current_user()

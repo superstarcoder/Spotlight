@@ -1,4 +1,5 @@
 from flask import Flask, render_template, flash, request, send_from_directory, redirect, url_for
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import os
 
 
@@ -16,6 +17,10 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+#@app.route('/suggest')
+#def suggest():
+#    return render_template('suggest.html')
 
 @app.route('/discover')
 def discover():
@@ -44,6 +49,53 @@ def css(path):
 @app.route('/js/<path:path>')
 def js(path):
     return send_from_directory('templates/js',path)
+
+
+
+class ReusableForm(Form):
+    @app.route("/suggest", methods=['GET', 'POST'])
+    def hello():
+        form = ReusableForm(request.form)
+
+        print(form.errors)
+        if request.method == 'POST':
+            searchQuery=request.form['search']
+
+            print("---------------------------------")
+            print(searchQuery)
+            print("---------------------------------")
+            return redirect(url_for('hello2'))
+
+        return render_template('suggest.html', form=form)
+
+    @app.route("/suggestForm", methods=['GET', 'POST'])
+    def hello2():
+        form = ReusableForm(request.form)
+
+        print(form.errors)
+        if request.method == 'POST':
+
+            print("---------------------------------")
+            print(request.form["song"])
+            print("---------------------------------")
+            return redirect(url_for('hello3'))
+
+
+        return render_template('suggestForm.html', form=form)
+
+    @app.route("/suggestForm2", methods=['GET', 'POST'])
+    def hello3():
+        form = ReusableForm(request.form)
+
+        print(form.errors)
+        if request.method == 'POST':
+
+            print("---------------------------------")
+            print(request.form["genre"])
+            print("---------------------------------")
+            return redirect(url_for('thankYou'))
+
+        return render_template('suggestForm2.html', form=form)
 
 
 if __name__ == "__main__":
