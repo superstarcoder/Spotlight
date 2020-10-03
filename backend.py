@@ -79,6 +79,7 @@ def songsToHtml(data):
     return inside
 
 """
+
 reload songs and add code to html
 """
 def reloadSongs(data, genres):
