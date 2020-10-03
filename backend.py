@@ -37,7 +37,7 @@
 # name of song
 # by who
 # genre
-
+from SpotipyBackend.test import songs
 data = [
     {"songid": r"https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy", "votes": 1, "name": "Player No More",
      "genre": "pop-rap", "artist": "Wassup Rocker", "who": "Danny"},
@@ -46,7 +46,7 @@ data = [
     {"songid": r"https://open.spotify.com/embed/track/2syCQpfGEttT4U2v8kVou7", "votes": 1, "name": "SoulEaters",
      "genre": "pop", "artist": "iceey.i, Lil Boom", "who": "Danny"}
 ]
-
+data += songs()
 
 def songsToHtml(data):
     inside = []
