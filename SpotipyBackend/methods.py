@@ -5,9 +5,35 @@ import spotipy
 import webbrowser
 import spotipy.util as util
 from json.decoder import JSONDecodeError
+import pprint
 
 
 
+
+def songs(spotifyObject, searchQuery):
+    user = spotifyObject.current_user()
+    displayName = user['display_name']
+    data_addition = []
+    query = searchSong(spotifyObject, searchQuery)['tracks']
+    for item in query['items']:
+        '''pprint.pprint((item), width=1)
+        print('\n\n\n')
+        '''
+
+        track = item
+        song_id =('https://open.spotify.com/embed/track/'+str(track['id']))
+        template = {"songid": song_id, "votes": 1, "name": track['name'],
+     "genre": "pop-rap", "artist": track['artists'][0]['name'], "who": displayName, "image": track['album']['images'][0]['url']}
+        artists = []
+        for i in track['artists']:
+            artists.append(spotifyObject.search(track['artists'][0]['name'],limit=1,offset=0,type="artist"))
+        for i in artists:
+            follow_count = i['artists']['items'][0]['followers']['total']
+            if follow_count <= 100000:
+                data_addition.append(template)
+                print(track['name'] + ' - ' + track['artists'][0]['name'])
+                break        
+    return(data_addition)
 
 def currentlyPlaying(spotifyObject):
     # Get current device
@@ -36,10 +62,19 @@ def userInfo(spotifyObject):
     return displayName
 
 def searchSong(sp, searchQuery):
-    results = sp.search(q=searchQuery, type="track", limit=10)
-    for item in results["tracks"]["items"]:
-        print(item["external_urls"])
-    #return results
+    max_ = False
+    limit = 1
+    while not max_:
+        try:
+            sp.search(q=searchQuery, type="track", limit=limit)
+            limit += 1
+        except:
+            limit -= 1
+            results = sp.search(q=searchQuery, type="track", limit=limit)
+            max_ = True
+    '''for item in results["tracks"]["items"]:
+        print(item["external_urls"])'''
+    return results
 
 
 def searchArtist(spotifyObject, searchQuery):
