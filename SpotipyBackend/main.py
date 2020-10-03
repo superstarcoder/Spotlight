@@ -14,5 +14,6 @@ import pprint
 #print("output:", methods.userInfo(spotifyObject))
 
 #print("output:", methods.searchArtist(spotifyObject, "tuxx"))
-a = methods.searchSong(spotifyObject, "post malone")
-pprint.pprint(a, width=1)
+a = methods.songs(spotifyObject, "tuxx")
+for i in a:
+    print(i)

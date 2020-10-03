@@ -49,20 +49,10 @@ if artist != "":
     print("Currently playing " + artist + " - " + track)
 
 # User information
-user = spotifyObject.current_user()
-displayName = user['display_name']
-followers = user['followers']['total']
+    user = spotifyObject.current_user()
+    displayName = user['display_name']
+    followers = user['followers']['total']
 
-def songs():
-    liked_songs = []
-    for item in spotifyObject.current_user_saved_tracks()['items']:
-        track = item['track']
-        print(track['name'] + ' - ' + track['artists'][0]['name'])
-        song_id =('https://open.spotify.com/embed/track/'+str(track['id']))
-        template = {"songid": song_id, "votes": 1, "name": track['name'],
-     "genre": "pop-rap", "artist": track['artists'][0]['name'], "who": displayName}
-        liked_songs.append(template)
-    return(liked_songs)
 # Loop
 while True:
     # Main Menu
