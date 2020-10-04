@@ -24,8 +24,6 @@ def songs(spotifyObject, searchQuery):
         song_id =('https://open.spotify.com/embed/track/'+str(track['id']))
         template = {"songLink": song_id, "name": track['name'], "songid": str(track['id']),
      "genre": "pop-rap", "author": track['artists'][0]['name'], "postedBy": displayName, "image": track['album']['images'][0]['url']}
-
-
         for i in track['artists']:
             link = (i['uri'])
             artist = spotifyObject.artist(link)
