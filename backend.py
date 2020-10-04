@@ -141,7 +141,7 @@ def editSuggestForm2(userid, vars):
             if "<!-- backend: suggestForm2Embed -->" in x:
                 chosenSong = vars.suggestForm[userid]["chosenSong"]
                 for x in vars.suggestForm[userid]["searchResults"]:
-                    if x["name"] == chosenSong:
+                    if x["name"]+" - "+x["author"] == chosenSong:
                         w = "240"
                         h = "304"
                         link = x["songLink"]

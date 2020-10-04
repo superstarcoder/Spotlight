@@ -10,6 +10,10 @@ sp = setup.run()
 username, userid = methods.userInfo(sp)
 print(username, userid)
 
+response = requests.get("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song")
+json = response.json()
+backend.reloadSongs(json, vars.genres)
+
 
 DEBUG = True
 app = Flask(__name__)
@@ -91,7 +95,7 @@ class ReusableForm(Form):
 
         print(form.errors)
         if request.method == 'POST':
-            vars.suggestForm[userid]["chosenSong"] = request.form["song"].split(" - ")[0]
+            vars.suggestForm[userid]["chosenSong"] = request.form["song"]
 
             backend.editSuggestForm2(userid, vars)
 
