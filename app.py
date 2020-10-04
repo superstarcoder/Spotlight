@@ -21,6 +21,10 @@ app.config['SECRET_KEY'] = os.urandom(24)
 def index():
     return render_template('index.html')
 
+@app.route('/features')
+def features():
+    return render_template('features.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html')
