@@ -63,7 +63,7 @@ def userInfo(spotifyObject):
     return displayName, userid
 
 def searchSong(sp, searchQuery):
-    max_ = False
+    '''max_ = False
     limit = 1
     while not max_:
         try:
@@ -72,7 +72,8 @@ def searchSong(sp, searchQuery):
         except:
             limit -= 1
             results = sp.search(q=searchQuery, type="track", limit=limit)
-            max_ = True
+            max_ = True'''
+    results = sp.search(q=searchQuery, type="track")
     '''for item in results["tracks"]["items"]:
         print(item["external_urls"])'''
     return results
