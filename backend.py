@@ -197,6 +197,7 @@ def editSuggestForm2(userid, vars):
                         lines.append(
                             "<iframe src=\"%s\" width=\"%s\" height=\"%s\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>" % (
                         link, w, h))
+                        print("debug: i added the embed")
 
 
     open('templates/suggestForm2.html', 'w').close()

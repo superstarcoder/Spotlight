@@ -130,12 +130,13 @@ class ReusableForm(Form):
 
         print(form.errors)
         if request.method == 'POST':
+            print("suggestForm", vars.suggestForm)
             chosenSong = vars.suggestForm[userid]["chosenSong"]
             for x in vars.suggestForm[userid]["searchResults"]:
-                if x["name"] == chosenSong:
+                if x["name"]+" - by "+x["author"] == chosenSong:
                     vars.suggestForm[userid]["chosenSongData"] = x
                     vars.suggestForm[userid]["chosenSongData"]["genre"] = request.form["genre"]
-                    print(vars.suggestForm)
+                    print("suggestForm", vars.suggestForm)
                     response = requests.post("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song",json=[vars.suggestForm[userid]["chosenSongData"]])
                     if response.status_code == 200:
                         print("YAY LEO API HAS WORKED")
@@ -155,8 +156,8 @@ class ReusableForm(Form):
             print("---------------------------------")
             return redirect(url_for('index'))
 
-        return render_template('suggestForm2.html', form=form)
+        return render_template('suggestForm2.html')
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="80")
+    app.run(host="0.0.0.0", port="8000")
