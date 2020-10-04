@@ -22,6 +22,23 @@ app.config['SECRET_KEY'] = os.urandom(24)
 #hmmmm lets see if the disc thing works
 
 
+
+@app.route('/voteSong/<songid>', methods=['GET', 'POST'])
+def profile(songid):
+    response = requests.get("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song/"+songid)
+    print(response)
+    mydict = response.json()
+    print(mydict)
+    mydict[0]["votes"] = int(mydict[0]["votes"])+1
+    print(mydict)
+    requests.put("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song",json=mydict)
+
+    response = requests.get("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song",json=mydict)
+    mydict = response.json()
+    backend.reloadSongs(mydict, vars.genres)
+    print("YAY SONG HAS BEEN UPVOTED")
+    return redirect(url_for('discover'))
+
 @app.route('/')
 def index():
     return render_template('index.html')
