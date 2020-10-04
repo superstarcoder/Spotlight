@@ -24,15 +24,13 @@ def songs(spotifyObject, searchQuery):
         song_id =('https://open.spotify.com/embed/track/'+str(track['id']))
         template = {"songLink": song_id, "name": track['name'], "songid": str(track['id']),
      "genre": "pop-rap", "author": track['artists'][0]['name'], "postedBy": displayName, "image": track['album']['images'][0]['url']}
-        artists = []
         for i in track['artists']:
-            artists.append(spotifyObject.search(track['artists'][0]['name'],limit=1,offset=0,type="artist"))
-        for i in artists:
-            follow_count = i['artists']['items'][0]['followers']['total']
+            follow_count = spotifyObject.search(track['artists'][0]['name'],limit=1,offset=0,type="artist")['artists']['items'][0]['followers']['total']
             if follow_count <= 100000:
                 data_addition.append(template)
                 print(track['name'] + ' - ' + track['artists'][0]['name'])
-                break        
+                break
+                    
     return(data_addition)
 
 def currentlyPlaying(spotifyObject):
