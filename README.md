@@ -23,3 +23,5 @@ We learned many unique things in AWS like setting inbound rules, outbound rules 
 **What's next for Spotlight**
 As a team we have decided that Spotlight will continue to be refined, and will have new features such as artist preview to make sure the right artist is being chosen, song preview, and also many user asked features that they could ask for on our GitHub page. We will also look into buying a domain to have a much cleaner url.
 
+**VIDEO LINK***
+https://drive.google.com/file/d/156wqmdkOt72lcvClKOPVJma2ri5n48cb/view?usp=sharing
