@@ -1,3 +1,5 @@
+**SPOTLIGHT**
+
 Most people now listen to music by major artists. This blocks smaller creators from getting a chance to get big in the industry, because bigger artists are blocking them off. Our website fixes this
 
 **Inspiration**
