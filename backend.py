@@ -93,6 +93,7 @@ def reloadSongs(data, genres):
                 for key, value in genres.items():
                     lines += "<li data-filter=\"."+key+"\">"+value+"</li>"
 
+
     open('templates/discover.html', 'w').close()
 
     with open("templates/discover.html", "w") as f:
@@ -111,12 +112,47 @@ def editSuggestForm1(userid, vars):
         for x in f.readlines():
             lines += x
             if "<!-- backend: suggestForm1 -->" in x:
-                for x in vars.suggestForm[userid]:
+                for x in vars.suggestForm[userid]["searchResults"]:
                     lines += "<li>"+x['name']+" - by "+x["artist"]+"</li>"
 
     open('templates/suggestForm.html', 'w').close()
 
     with open("templates/suggestForm.html", "w") as f:
+        f.writelines(lines)
+    f.close()
+
+
+"""
+
+reload songs and add code to html
+"""
+def editSuggestForm2(userid, vars):
+    lines = []
+    with open('templates/suggestForm2Template.html') as f:
+        for x in f.readlines():
+            lines += x
+            if "<!-- backend: suggestForm2 -->" in x:
+                #for x in vars.suggestForm[userid]:
+                #    lines += "<li>"+x['name']+" - by "+x["artist"]+"</li>"
+                for key,value in vars.genres.items():
+                    lines += "<li>"+value+"</li>"
+                    #chosenSong = x[]
+                    #lines += "<li>"+x['name']+" - by "+x["artist"]+"</li>"
+            if "<!-- backend: suggestForm2Embed -->" in x:
+                chosenSong = vars.suggestForm[userid]["chosenSong"]
+                for x in vars.suggestForm[userid]["searchResults"]:
+                    if x["name"].startswith(chosenSong):
+                        w = "240"
+                        h = "304"
+                        link = x["songid"]
+                        lines.append(
+                            "<iframe src=\"%s\" width=\"%s\" height=\"%s\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>" % (
+                        link, w, h))
+
+
+    open('templates/suggestForm2.html', 'w').close()
+
+    with open("templates/suggestForm2.html", "w") as f:
         f.writelines(lines)
     f.close()
 

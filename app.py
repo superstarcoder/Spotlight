@@ -67,7 +67,8 @@ class ReusableForm(Form):
         print(form.errors)
         if request.method == 'POST':
             searchQuery=request.form['search']
-            vars.suggestForm[userid] = methods.songs(sp, searchQuery)
+            vars.suggestForm[userid] = {}
+            vars.suggestForm[userid]["searchResults"] = methods.songs(sp, searchQuery)
             backend.editSuggestForm1(userid, vars)
 
             print("---------------------------------")
@@ -85,6 +86,9 @@ class ReusableForm(Form):
 
         print(form.errors)
         if request.method == 'POST':
+            vars.suggestForm[userid]["chosenSong"] = request.form["song"].split(" - ")[0]
+
+            backend.editSuggestForm2(userid, vars)
 
             print("---------------------------------")
             print(request.form["song"])
@@ -100,6 +104,15 @@ class ReusableForm(Form):
 
         print(form.errors)
         if request.method == 'POST':
+            chosenSong = vars.suggestForm[userid]["chosenSong"]
+            for x in vars.suggestForm[userid]["searchResults"]:
+                if x["name"].startswith(chosenSong):
+                    vars.suggestForm[userid]["chosenSongData"] = x
+                    vars.suggestForm[userid]["chosenSongData"]["genre"] = request.form["genre"]
+                    print(vars.suggestForm)
+                    # code for adding chosenSongData to main songs database
+                    # code for calling backend to edit html file
+
 
             print("---------------------------------")
             print(request.form["genre"])
