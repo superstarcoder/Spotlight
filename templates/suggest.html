@@ -24,9 +24,223 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <!-- <link rel="stylesheet" href="css/searchBar.css" type="text/css"> -->
 </head>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 2;
+        /* Sit on top */
+        padding-top: 100px;
+        /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        z-index: 2;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
+
+    .card {
+        background-color: #222831;
+        height: 37rem;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.7);
+        color: white;
+    }
+
+    .card__name {
+        margin-top: 15px;
+        font-size: 1.5em;
+    }
+
+    .card__image {
+        height: 160px;
+        width: 160px;
+        border-radius: 50%;
+        border: 5px solid #272133;
+        margin-top: 20px;
+        box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+    }
+
+
+    .draw-border {
+        box-shadow: inset 0 0 0 4px #58cdd1;
+        color: #58afd1;
+        -webkit-transition: color 0.25s 0.0833333333s;
+        transition: color 0.25s 0.0833333333s;
+        position: relative;
+    }
+
+    .draw-border::before,
+    .draw-border::after {
+        border: 0 solid transparent;
+        box-sizing: border-box;
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        width: 0rem;
+        height: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .draw-border::before {
+        border-bottom-width: 4px;
+        border-left-width: 4px;
+    }
+
+    .draw-border::after {
+        border-top-width: 4px;
+        border-right-width: 4px;
+    }
+
+    .draw-border:hover {
+        color: #ffe593;
+    }
+
+    .draw-border:hover::before,
+    .draw-border:hover::after {
+        border-color: #eb196e;
+        -webkit-transition: border-color 0s, width 0.25s, height 0.25s;
+        transition: border-color 0s, width 0.25s, height 0.25s;
+        width: 100%;
+        height: 100%;
+    }
+
+    .draw-border:hover::before {
+        -webkit-transition-delay: 0s, 0s, 0.25s;
+        transition-delay: 0s, 0s, 0.25s;
+    }
+
+    .draw-border:hover::after {
+        -webkit-transition-delay: 0s, 0.25s, 0s;
+        transition-delay: 0s, 0.25s, 0s;
+    }
+
+    .btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        line-height: 1.5;
+        font: 700 1.2rem 'Roboto Slab', sans-serif;
+        padding: 0.75em 2em;
+        letter-spacing: 0.05rem;
+        margin: 1em;
+        width: 13rem;
+    }
+
+    .btn:focus {
+        outline: 2px dotted #55d7dc;
+    }
+
+
+    .social-icons {
+        padding: 0;
+        list-style: none;
+        margin: 1em;
+    }
+
+    .social-icons li {
+        display: inline-block;
+        margin: 0.15em;
+        position: relative;
+        font-size: 1em;
+    }
+
+    .social-icons i {
+        color: #fff;
+        position: absolute;
+        top: 0.95em;
+        left: 0.96em;
+        transition: all 265ms ease-out;
+    }
+
+    .social-icons a {
+        display: inline-block;
+    }
+
+    .social-icons a:before {
+        transform: scale(1);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        content: " ";
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        display: block;
+        background: linear-gradient(45deg, #ff003c, #c648c8);
+        transition: all 265ms ease-out;
+    }
+
+    .social-icons a:hover:before {
+        transform: scale(0);
+        transition: all 265ms ease-in;
+    }
+
+    .social-icons a:hover i {
+        transform: scale(2.2);
+        -ms-transform: scale(2.2);
+        -webkit-transform: scale(2.2);
+        color: #ff003c;
+        background: -webkit-linear-gradient(45deg, #ff003c, #c648c8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: all 265ms ease-in;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        font-size: 1.2em;
+    }
+</style>
 
 <body>
-<!-- Page Preloder -->
+    <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -89,28 +303,100 @@
     <!-- Services Section Begin -->
     <section class="services-page spad">
         <div class="container">
+            <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="card">
+                        <img src="https://lh3.googleusercontent.com/ytP9VP86DItizVX2YNA-xTYzV09IS7rh4WexVp7eilIcfHmm74B7odbcwD5DTXmL0PF42i2wnRKSFPBHlmSjCblWHDCD2oD1oaM1CGFcSd48VBKJfsCi4bS170PKxGwji8CPmehwPw=w200-h247-no"
+                            alt="Person" class="card__image">
+                        <p class="card__name">Lily-Grace Colley</p>
+                        <div class="grid-container">
+
+                            <div class="grid-child-posts">
+                                156 Post
+                            </div>
+
+                            <div class="grid-child-followers">
+                                1012 Likes
+                            </div>
+
+                        </div>
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-codepen"></i></a></li>
+                        </ul>
+                        <button class="btn draw-border">Follow</button>
+                        <button class="btn draw-border">Message</button>
+
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
 
 
                 <div class="searchBar">
                     <form method="POST">
-                        <input type="text" placeholder="Search..." name="search" autocomplete="off">
-                    <div class="search"></div>
+                        <input id="myInput" type="text" placeholder="Search..." name="search" autocomplete="off"
+                            onkeyup="watchWords()">
+                        <script>
+                            function watchWords() {
+                                var modal = document.getElementById("myModal");
+
+                                // Get the <span> element that closes the modal
+                                var span = document.getElementsByClassName("close")[0];
+
+                                // When the user clicks the button, open the modal 
+
+                                // When the user clicks on <span> (x), close the modal
+                                span.onclick = function () {
+                                    modal.style.display = "none";
+                                }
+
+                                // When the user clicks anywhere outside of the modal, close it
+                                window.onclick = function (event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                                var watch_words = ['artist'];
+                                var textvalue = document.getElementById('myInput').value;
+                                for (var i = 0; i < watch_words.length; i++) {
+                                    if (~textvalue.indexOf(watch_words[i])) {
+
+                                        if (watch_words[i] == 'artist') {
+                                            modal.style.display = "block";
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        </script>
+                        <div class="search"></div>
                     </form>
                     <style>
                         @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+
                         * {
                             margin: 0;
                             padding: 0;
                             box-sizing: border-box;
                         }
-                        html, body {
+
+                        html,
+                        body {
                             width: 100%;
                             height: 100%;
                         }
+
                         body {
                             background: #252525;
                         }
+
                         .searchBar {
                             position: absolute;
                             margin: auto;
@@ -121,6 +407,7 @@
                             width: 300px;
                             height: 100px;
                         }
+
                         .searchBar .search {
                             position: absolute;
                             margin: auto;
@@ -136,9 +423,11 @@
                             z-index: 4;
                             box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
                         }
+
                         .searchBar .search:hover {
                             cursor: pointer;
                         }
+
                         .searchBar .search::before {
                             content: "";
                             position: absolute;
@@ -153,6 +442,7 @@
                             transform: rotate(45deg);
                             transition: all 0.5s;
                         }
+
                         .searchBar .search::after {
                             content: "";
                             position: absolute;
@@ -167,6 +457,7 @@
                             border: 2px solid white;
                             transition: all 0.5s;
                         }
+
                         .searchBar input {
                             font-family: 'Inconsolata', monospace;
                             position: absolute;
@@ -191,25 +482,30 @@
                             font-weight: bolder;
                             letter-spacing: 0.1em;
                         }
+
                         .searchBar input:hover {
                             cursor: pointer;
                         }
+
                         .searchBar input:focus {
                             width: 300px;
                             opacity: 1;
                             cursor: text;
                         }
-                        .searchBar input:focus ~ .search {
+
+                        .searchBar input:focus~.search {
                             right: -250px;
                             background: #151515;
                             z-index: 6;
                         }
-                        .searchBar input:focus ~ .search::before {
+
+                        .searchBar input:focus~.search::before {
                             top: 0;
                             left: 0;
                             width: 25px;
                         }
-                        .searchBar input:focus ~ .search::after {
+
+                        .searchBar input:focus~.search::after {
                             top: 0;
                             left: 0;
                             width: 25px;
@@ -219,6 +515,7 @@
                             border-radius: 0%;
                             transform: rotate(-45deg);
                         }
+
                         .searchBar input::placeholder {
                             color: white;
                             opacity: 0.5;
@@ -274,64 +571,67 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="footer__option__item">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="footer__option__item">
-                        <h5>About us</h5>
-                        <p>Formed in 2020 by Dhanish, Niranjan, Charan, and Leo, Spotlight is an open source website made to recommend people music by small artists that would otherwise never have the chance to grow. </p>
-                        <a href="#" class="read__more">Read more <span class="arrow_right"></span></a>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="footer__option__item">
+                                    <h5>About us</h5>
+                                    <p>Formed in 2020 by Dhanish, Niranjan, Charan, and Leo, Spotlight is an open source
+                                        website made to recommend people music by small artists that would otherwise
+                                        never have the chance to grow. </p>
+                                    <a href="#" class="read__more">Read more <span class="arrow_right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-3">
+                            <div class="footer__option__item">
+                                <h5>Who we are</h5>
+                                <ul>
+                                    <li><a href="#">Team</a></li>
+                                    <li><a href="#">Carrers</a></li>
+                                    <li><a href="#">Contact us</a></li>
+                                    <li><a href="#">Locations</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-3">
+                            <div class="footer__option__item">
+                                <h5>Our work</h5>
+                                <ul>
+                                    <li><a href="#">Feature</a></li>
+                                    <li><a href="#">Latest</a></li>
+                                    <li><a href="#">Browse Archive</a></li>
+                                    <li><a href="#">Video for web</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="footer__option__item">
+                                <h5>Newsletter</h5>
+                                <p>Videoprah is an award-winning, full-service production company specializing.</p>
+                                <form action="#">
+                                    <input type="text" placeholder="Email">
+                                    <button type="submit"><i class="fa fa-send"></i></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-3">
-                        <div class="footer__option__item">
-                            <h5>Who we are</h5>
-                            <ul>
-                                <li><a href="#">Team</a></li>
-                                <li><a href="#">Carrers</a></li>
-                                <li><a href="#">Contact us</a></li>
-                                <li><a href="#">Locations</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-3">
-                        <div class="footer__option__item">
-                            <h5>Our work</h5>
-                            <ul>
-                                <li><a href="#">Feature</a></li>
-                                <li><a href="#">Latest</a></li>
-                                <li><a href="#">Browse Archive</a></li>
-                                <li><a href="#">Video for web</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="footer__option__item">
-                            <h5>Newsletter</h5>
-                            <p>Videoprah is an award-winning, full-service production company specializing.</p>
-                            <form action="#">
-                                <input type="text" placeholder="Email">
-                                <button type="submit"><i class="fa fa-send"></i></button>
-                            </form>
+                <div class="footer__copyright">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <p class="footer__copyright__text">Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                    aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    target="_blank">Colorlib</a>
+                            </p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer__copyright">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <p class="footer__copyright__text">Copyright &copy;
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        </p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </div>
-                </div>
-            </div>
-        </div>
     </footer>
     <!-- Footer Section End -->
 
