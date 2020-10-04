@@ -86,10 +86,13 @@ def songsToHtml(data):
         inside.append("""
         <div class="wrap">
         <!-- <div class="votes">138</div> -->
-        <div class="button"><i class="fa fa-arrow-up"></i>Vote this up now</div>
+        <form action="/voteSong/%s" method="POST">
+        <button type="submit" class="button button1">Vote this up now</button>
+        </form>
         </div>
-        """)
+        """ % x["songid"])
         #inside.append("<button class=\"button button1\">Green</button>")
+        #<div class="button" type="submit"><i class="fa fa-arrow-up"></i>Vote this up now</div>
         inside.append("</div></div></div>\n\n\n")
     inside.append("""<style>
 .button {
