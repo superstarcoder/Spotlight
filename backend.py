@@ -58,6 +58,7 @@ def songsToHtml(data):
         """
         inside += s.splitlines()
         link = x["songLink"]
+
         w = "240"
         h = "304"
         inside.append(
@@ -74,7 +75,52 @@ def songsToHtml(data):
         inside.append("<ul><li>" + author + "</li></ul>")
 
         genre = x["genre"]
-        inside.append("<ul><li>" + genre + "</li></ul></div></div></div>\n\n\n")
+        inside.append("<ul><li>" + genre + "</li></ul>")
+
+        try:
+            votes = x["votes"]
+        except:
+            votes = 0
+        #inside.append("votes: "+str(votes))
+        inside.append("<ul><li>" + "votes: "+str(votes) + "</li></ul>")
+        inside.append("""
+        <div class="wrap">
+        <!-- <div class="votes">138</div> -->
+        <div class="button"><i class="fa fa-arrow-up"></i>Vote this up now</div>
+        </div>
+        """)
+        #inside.append("<button class=\"button button1\">Green</button>")
+        inside.append("</div></div></div>\n\n\n")
+    inside.append("""<style>
+.button {
+  background-color: black; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+
+.button {
+  background-color: blacck; 
+  color: white; 
+  border: 0px solid #f44336;
+}
+
+.button:hover {
+  background-color: #f44336;
+  color: black;
+}
+
+
+}
+</style>""")
     return inside
 
 """
