@@ -1,5 +1,6 @@
 from flask import Flask, render_template, flash, request, send_from_directory, redirect, url_for
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+import requests
 import os
 import SpotipyBackend.setup as setup
 import SpotipyBackend.methods as methods
@@ -110,18 +111,28 @@ class ReusableForm(Form):
         if request.method == 'POST':
             chosenSong = vars.suggestForm[userid]["chosenSong"]
             for x in vars.suggestForm[userid]["searchResults"]:
-                if x["name"].startswith(chosenSong):
+                if x["name"] == chosenSong:
                     vars.suggestForm[userid]["chosenSongData"] = x
                     vars.suggestForm[userid]["chosenSongData"]["genre"] = request.form["genre"]
                     print(vars.suggestForm)
-                    # code for adding chosenSongData to main songs database
+                    response = requests.post("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song",json=[vars.suggestForm[userid]["chosenSongData"]])
+                    if response.status_code == 200:
+                        print("YAY LEO API HAS WORKED")
+                    else:
+                        print("UHOH LEO API HAS SOME ERROR")
+                    response = requests.get("http://ec2-3-93-175-128.compute-1.amazonaws.com:3000/song")
+                    json = response.json()
+                    backend.reloadSongs(json, vars.genres)
+
+
+                # code for adding chosenSongData to main songs database
                     # code for calling backend to edit html file
 
 
             print("---------------------------------")
             print(request.form["genre"])
             print("---------------------------------")
-            return redirect(url_for('thankYou'))
+            return redirect(url_for('index'))
 
         return render_template('suggestForm2.html', form=form)
 

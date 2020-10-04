@@ -39,11 +39,11 @@
 # genre
 #import SpotipyBackend.main
 data = [
-    {"songid": r"https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy", "votes": 1, "name": "Player No More",
+    {"songLink": r"https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy", "votes": 1, "name": "Player No More",
      "genre": "pop-rap", "artist": "Wassup Rocker", "who": "Danny"},
-    {"songid": r"https://open.spotify.com/embed/track/1B5jLmBZ9p9CTCT0fiBmIx", "votes": 1, "name": "1100",
+    {"songLink": r"https://open.spotify.com/embed/track/1B5jLmBZ9p9CTCT0fiBmIx", "votes": 1, "name": "1100",
      "genre": "pop-rap", "artist": "tuxx", "who": "Danny"},
-    {"songid": r"https://open.spotify.com/embed/track/2syCQpfGEttT4U2v8kVou7", "votes": 1, "name": "SoulEaters",
+    {"songLink": r"https://open.spotify.com/embed/track/2syCQpfGEttT4U2v8kVou7", "votes": 1, "name": "SoulEaters",
      "genre": "pop", "artist": "iceey.i, Lil Boom", "who": "Danny"}
 ]
 #data += SpotipyBackend.main.a
@@ -57,7 +57,7 @@ def songsToHtml(data):
         <div class="portfolio__item__video set-bg">
         """
         inside += s.splitlines()
-        link = x["songid"]
+        link = x["songLink"]
         w = "240"
         h = "304"
         inside.append(
@@ -70,8 +70,8 @@ def songsToHtml(data):
         songName = x["name"]
         inside.append("<h4>" + songName + "</h4>")
 
-        artist = x["artist"]
-        inside.append("<ul><li>" + artist + "</li></ul>")
+        author = x["author"]
+        inside.append("<ul><li>" + author + "</li></ul>")
 
         genre = x["genre"]
         inside.append("<ul><li>" + genre + "</li></ul></div></div></div>\n\n\n")
@@ -113,7 +113,7 @@ def editSuggestForm1(userid, vars):
             lines += x
             if "<!-- backend: suggestForm1 -->" in x:
                 for x in vars.suggestForm[userid]["searchResults"]:
-                    lines += "<li>"+x['name']+" - by "+x["artist"]+"</li>"
+                    lines += "<li>"+x['name']+" - by "+x["author"]+"</li>"
 
     open('templates/suggestForm.html', 'w').close()
 
@@ -141,10 +141,10 @@ def editSuggestForm2(userid, vars):
             if "<!-- backend: suggestForm2Embed -->" in x:
                 chosenSong = vars.suggestForm[userid]["chosenSong"]
                 for x in vars.suggestForm[userid]["searchResults"]:
-                    if x["name"].startswith(chosenSong):
+                    if x["name"] == chosenSong:
                         w = "240"
                         h = "304"
-                        link = x["songid"]
+                        link = x["songLink"]
                         lines.append(
                             "<iframe src=\"%s\" width=\"%s\" height=\"%s\" frameborder=\"0\" allowtransparency=\"true\" allow=\"encrypted-media\"></iframe>" % (
                         link, w, h))
