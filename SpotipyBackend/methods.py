@@ -58,8 +58,9 @@ def userInfo(spotifyObject):
     # User information
     user = spotifyObject.current_user()
     displayName = user['display_name']
+    userid = user["id"]
     followers = user['followers']['total']
-    return displayName
+    return displayName, userid
 
 def searchSong(sp, searchQuery):
     max_ = False

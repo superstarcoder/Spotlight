@@ -1,6 +1,13 @@
 from flask import Flask, render_template, flash, request, send_from_directory, redirect, url_for
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import os
+import SpotipyBackend.setup as setup
+import SpotipyBackend.methods as methods
+import SpotipyBackend.vars as vars
+import backend
+sp = setup.run()
+username, userid = methods.userInfo(sp)
+print(username, userid)
 
 
 DEBUG = True
@@ -60,10 +67,14 @@ class ReusableForm(Form):
         print(form.errors)
         if request.method == 'POST':
             searchQuery=request.form['search']
+            vars.suggestForm[userid] = methods.songs(sp, searchQuery)
+            backend.editSuggestForm1(userid, vars)
 
             print("---------------------------------")
             print(searchQuery)
+            print(vars.suggestForm)
             print("---------------------------------")
+
             return redirect(url_for('hello2'))
 
         return render_template('suggest.html', form=form)

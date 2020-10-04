@@ -37,7 +37,7 @@
 # name of song
 # by who
 # genre
-import SpotipyBackend.main
+#import SpotipyBackend.main
 data = [
     {"songid": r"https://open.spotify.com/embed/track/229S6OjNPcJs7Xast1Lioy", "votes": 1, "name": "Player No More",
      "genre": "pop-rap", "artist": "Wassup Rocker", "who": "Danny"},
@@ -46,7 +46,7 @@ data = [
     {"songid": r"https://open.spotify.com/embed/track/2syCQpfGEttT4U2v8kVou7", "votes": 1, "name": "SoulEaters",
      "genre": "pop", "artist": "iceey.i, Lil Boom", "who": "Danny"}
 ]
-data += SpotipyBackend.main.a
+#data += SpotipyBackend.main.a
 def songsToHtml(data):
     inside = []
     for x in data:
@@ -100,6 +100,26 @@ def reloadSongs(data, genres):
     f.close()
 
 
+
+"""
+
+reload songs and add code to html
+"""
+def editSuggestForm1(userid, vars):
+    lines = []
+    with open('templates/suggestFormTemplate.html') as f:
+        for x in f.readlines():
+            lines += x
+            if "<!-- backend: suggestForm1 -->" in x:
+                for x in vars.suggestForm[userid]:
+                    lines += "<li>"+x['name']+" - by "+x["artist"]+"</li>"
+
+    open('templates/suggestForm.html', 'w').close()
+
+    with open("templates/suggestForm.html", "w") as f:
+        f.writelines(lines)
+    f.close()
+
 genres = {"pop": "Pop", "pop-rap": "Pop Rap", "lo-fi": "Lo-fi", "metal": "Metal", "world": "World"}
 """
 <li data-filter=".branding">Branding</li>
@@ -112,4 +132,4 @@ genres = {"pop": "Pop", "pop-rap": "Pop Rap", "lo-fi": "Lo-fi", "metal": "Metal"
 
 
 
-reloadSongs(data, genres)
+#reloadSongs(data, genres)
