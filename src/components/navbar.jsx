@@ -4,7 +4,7 @@ import logo from "./img/blah2.png"
 function Navbar(){
     return(
         <header className="header">
-        <div className="container" style = {{background: "gray"}}>
+        <div className="container">
             <div className="row">
                 <div className="col-lg-2">
                     <div className="header__logo">
