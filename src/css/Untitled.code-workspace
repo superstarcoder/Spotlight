@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../Spotlight"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "spotlight-final"
+	}
+}

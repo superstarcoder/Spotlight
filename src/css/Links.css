@@ -1,0 +1,9 @@
+.LinkItem:hover {
+    color: gray;
+    cursor: pointer;
+}
+
+.LinkItem{
+    padding: 10px;
+    color: white;
+}
